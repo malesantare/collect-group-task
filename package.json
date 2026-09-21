@@ -1,0 +1,47 @@
+{
+  "name": "wallet-watcher",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sepolia ETH wallet watcher and withdrawal builder",
+  "type": "module",
+  "engines": {
+    "node": ">=22.15.0"
+  },
+  "scripts": {
+    "setup": "tsx src/cli/setup.ts",
+    "demo": "node --env-file-if-exists=.env --import tsx src/cli/demo.ts status",
+    "demo:sign": "node --env-file-if-exists=.env --import tsx src/cli/demo.ts sign",
+    "demo:send": "node --env-file-if-exists=.env --import tsx src/cli/demo.ts send",
+    "demo:retry": "node --env-file-if-exists=.env --import tsx src/cli/demo.ts retry",
+    "setup:env": "tsx src/cli/init-env.ts",
+    "setup:db": "tsx src/cli/setup-db.ts",
+    "setup:withdrawals": "tsx src/cli/setup-withdrawals.ts",
+    "db:up": "docker compose up -d --wait db",
+    "db:stop": "docker compose stop db",
+    "db:migrate": "node --env-file-if-exists=.env --import tsx src/cli/migrate.ts",
+    "balances:sync": "node --env-file-if-exists=.env --import tsx src/cli/sync-balances.ts",
+    "test:integration": "node --env-file-if-exists=.env node_modules/vitest/vitest.mjs run --config vitest.integration.config.ts",
+    "wallets:list": "node --env-file-if-exists=.env --import tsx src/cli/list-wallets.ts",
+    "dev": "node --env-file-if-exists=.env --import tsx --watch src/server.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node --env-file-if-exists=.env dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "npm run typecheck && npm test && npm run build"
+  },
+  "dependencies": {
+    "ethers": "6.17.0",
+    "express": "^5.2.1",
+    "pg": "8.23.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.6",
+    "@types/node": "22.20.4",
+    "@types/pg": "8.23.1",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11"
+  }
+}
